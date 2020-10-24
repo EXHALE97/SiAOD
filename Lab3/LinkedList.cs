@@ -9,6 +9,7 @@ namespace Lab3
         private Node<T> _tail; //последний элемент
         public int Count { get; private set; }
 
+        //добавление элемента
         public void Add(T item)
         {
             var node = new Node<T>(item); //создаем узел для добавления
@@ -17,8 +18,9 @@ namespace Lab3
                 _head = node; //то он хед
             else
             {
-                _tail.Next = node;
-                node.Previous = _tail;
+                //иначе делаем связь между последним элементом до добавляемого
+                _tail.Next = node; //для предыдущего элемента следующий тот, который добавляем
+                node.Previous = _tail; //для добавляемого элемента предыдущий тот, который был последним
             }
 
             _tail = node; //если первый - элемент и первый и последний, иначе чисто последнему элементу значение присваиваем
@@ -26,18 +28,19 @@ namespace Lab3
             Count++;
         }
 
+        //удаление элемента
         public bool Remove(T item)
         {
-            Node<T> current = _head;
+            var current = _head; //создаем узел от начала списка, чтобы можно было пройти по всему списку
 
             // поиск удаляемого узла
-            while (current != null)
+            while (current != null) //пока не дойдем до конца списка
             {
-                if (current.Value.Equals(item))
+                if (current.Value.Equals(item)) //если элемент соответствует тому, который хотим удалить
                 {
-                    break;
+                    break; //нужный нам элемент будет в переменной current
                 }
-                current = current.Next;
+                current = current.Next; //если не соответствует - идем дальше
             }
 
             if (current == null) return false; //не нашли элемента - false
@@ -67,10 +70,11 @@ namespace Lab3
                 // если первый, переустанавливаем head
                 _head = current.Next; //если элемент первый - делаем следующий после него хедом
             }
-            Count--;
-            return true;
+            Count--; //уменьшаем количество элементов
+            return true; //говорим об успшном удалении
         }
 
+        //очистка списка
         public void Clear()
         {
             _head = null;
@@ -101,14 +105,14 @@ namespace Lab3
         //просто через yield return получаем все элементы списка. Нужно чисто чтобы юзать интерфейс IEnumberable
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            var current = _head;
-            while (current != null)
+            var current = _head; //создаем узел чтобы пройти по всем элементам от начала
+            while (current != null) //пока не дошли до конца
             {
-                yield return current.Value;
-                current = current.Next;
+                yield return current.Value; //возвращаем каждый имеющийся элемент
+                current = current.Next; //идем дальше
             }
         }
 
-        public bool IsEmpty => Count == 0;
+        public bool IsEmpty => Count == 0; //если размер равен нулю - список пустой
     }
 }

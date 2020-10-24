@@ -22,14 +22,16 @@ namespace Lab2
             Count++;
         }
 
+        //удаление элемента
         public bool Remove(T item)
         {
-            Node<T> previous = null;
-            var current = _head;
+            Node<T> previous = null; //узел который предшествует первому - пустой
+            var current = _head; //создаем узел от начала списка, чтобы можно было пройти по всему списку
 
-            while (current != null)
+            // поиск удаляемого узла
+            while (current != null) //пока не дойдем до конца списка
             {
-                if (current.Value.Equals(item))
+                if (current.Value.Equals(item)) //если элемент соответствует тому, который хотим удалить
                 {
                     // Если узел в середине или в конце
                     if (previous != null)
@@ -52,16 +54,18 @@ namespace Lab2
                         if (_head == null)
                             _tail = null;
                     }
-                    Count--;
+                    Count--; //уменьшаем количество элементов на 1
                     return true;
                 }
 
-                previous = current;
-                current = current.Next;
+                //переходим к следующему элементу
+                previous = current; //предыдущий элемент будет тем, который выбран сейчас
+                current = current.Next; //нынешним элемеентом будет тот, который дальше
             }
             return false;
         }
 
+        //очистка списка
         public void Clear()
         {
             _head = null;
@@ -92,14 +96,14 @@ namespace Lab2
         //просто через yield return получаем все элементы списка. Нужно чисто чтобы юзать интерфейс IEnumberable
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            var current = _head;
-            while (current != null)
+            var current = _head; //создаем узел чтобы пройти по всем элементам от начала
+            while (current != null) //пока не дошли до конца
             {
-                yield return current.Value;
-                current = current.Next;
+                yield return current.Value; //возвращаем каждый имеющийся элемент
+                current = current.Next; //идем дальше
             }
         }
 
-        public bool IsEmpty => Count == 0;
+        public bool IsEmpty => Count == 0; //если размер равен нулю - список пустой
     }
 }
