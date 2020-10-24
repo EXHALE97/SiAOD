@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lab4
+namespace Lab5
 {
     // Элемент данных хеш таблицы.
     public class Item
