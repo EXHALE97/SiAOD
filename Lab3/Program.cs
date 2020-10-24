@@ -15,9 +15,7 @@ namespace Lab3
 
             AddCharElementsInList(list, n); //вызов функции добавления символов в список
             MoveArithmeticSymbolsInSecondList(list, outputList); //перемещение арифметических символов в другой список
-
-            Console.WriteLine("\nFirst list:");
-            WriteListInConsole(list); //вывод первого списка в консоль
+            WriteListInConsole(list, "\nFirst list:"); //вывод первого списка в консоль
 
             if (outputList.IsEmpty) //если во втором списке пусто (в первом не было арифметических символов)
             {
@@ -25,14 +23,18 @@ namespace Lab3
             }
             else
             {
-                Console.WriteLine("\nSecond list:");
-                WriteListInConsole(outputList); //вывод второго списка в консоль
+                WriteListInConsole(outputList, "\nSecond list:"); //вывод второго списка в консоль
             }
         }
 
         //метод вывода списка в консоль
-        private static void WriteListInConsole(LinkedList<char> list)
+        private static void WriteListInConsole(LinkedList<char> list, string title = null)
         {
+            if (!string.IsNullOrEmpty(title)) //если заголовок не пустой
+            {
+                Console.WriteLine(title); //выводим его в консоль
+            }
+
             foreach (var element in list) //перебираем каждый элемент
             {
                 Console.WriteLine(element); //и выводим в консоль
